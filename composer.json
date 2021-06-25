@@ -1,0 +1,13 @@
+{
+    "name": "antanasga/xmlrpcdecode",
+    "description": "Easy way to decode XMLRPC requests",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": { "AntanasGa\\XmlRpcDecode\\": "src/" }
+    }
+}
