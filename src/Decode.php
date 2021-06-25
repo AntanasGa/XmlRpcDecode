@@ -69,7 +69,7 @@ class Decode
         } elseif (count($object->param) === 1) {
             $value = new Value($object->param);
             $tmpResult = $value->get();
-            $result = $tmpResult;
+            $result[] = $tmpResult;
         }
         return $result;
     }

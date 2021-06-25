@@ -10,7 +10,7 @@ installation using composer:
 
 ```json
 "require": {
-    "AntanasGa/XmlRpcDecode": "^0.1"
+    "AntanasGa/XmlRpcDecode": "^0.1.0"
 }
 ```
 
