@@ -2,28 +2,32 @@
 
 namespace AntanasGa\XmlRpcDecode\Types;
 
+use AntanasGa\XmlRpcDecode\Common;
+use SimpleXMLElement;
+
 /**
- * ***DoubleV*** Handles `float` elements
+ * ***DoubleV*** Handles `double | float` elements
  */
-class DoubleV implements VInterface
+class DoubleV extends Common implements VInterface
 {
-    private \SimpleXMLElement $object;
+    private static array $matches = [
+        'double',
+    ];
 
     /**
-     * @param \SimpleXMLElement $object `double` object
-     */
-    public function __construct(\SimpleXMLElement $object)
-    {
-        $this->object = $object;
-    }
-
-    /**
-     * ***get*** parses `float`
+     * ***get*** parses `double | float` value
      *
+     * @param SimpleXMLElement $object
      * @return float
      */
-    public function get()
+    public static function get(SimpleXMLElement $object)
     {
-        return (float) $this->object;
+        $pickableType = self::matchVariable(self::$matches, $object, 'double');
+        return (float) $object->{$pickableType};
+    }
+    
+    public static function names(): array
+    {
+        return self::$matches;
     }
 }

@@ -2,42 +2,41 @@
 
 namespace AntanasGa\XmlRpcDecode\Types;
 
-use ValueError;
+use AntanasGa\XmlRpcDecode\Common;
+use Exception;
+use SimpleXMLElement;
 
 /**
- * ***StructV*** Handles `array` elements that are keyed
+ * ***ArrayV*** Handles struct (associative array) elements
  */
-class StructV implements VInterface
+class StructV extends Common implements VInterface
 {
-    private \SimpleXMLElement $object;
+    private static array $matches = [
+        'struct',
+    ];
 
     /**
-     * @param \SimpleXMLElement $object `struct` object
-     */
-    public function __construct(\SimpleXMLElement $object)
-    {
-        if (!isset($object->member) || count($object->member) < 1) {
-            throw new ValueError('Structure has no members');
-        }
-        $this->object = $object->member;
-    }
-
-    /**
-     * ***get*** parses `array` with keys
+     * ***get*** parses `struct` value
      *
+     * @param SimpleXMLElement $object
      * @return array
      */
-    public function get()
+    public static function get(SimpleXMLElement $object)
     {
         $result = [];
-        foreach ($this->object as $part) {
-            if (!isset($part->name)) {
-                throw new ValueError('Struct element does not have a key (name)');
+        $pickableType = self::matchVariable(self::$matches, $object, 'struct (associative array)');
+        $members = $object->{$pickableType}->member;
+        foreach ($members as $member) {
+            if ($member->name === null) {
+                throw new Exception('Failed to link a member with a key of null');
             }
-            $value = new Value($part);
-            $tmpHold = $value->get();
-            $result[(string) $part->name] = $tmpHold;
+            $result[(string) $member->name] = Value::get($member->value);
         }
         return $result;
+    }
+
+    public static function names(): array
+    {
+        return self::$matches;
     }
 }

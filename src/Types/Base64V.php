@@ -6,26 +6,27 @@ use AntanasGa\XmlRpcDecode\Common;
 use SimpleXMLElement;
 
 /**
- * ***BooleanV*** Handles `bool` elements
+ * ***Base64V*** Handles base64 strings
  */
-class BooleanV extends Common implements VInterface
+class Base64V extends Common implements VInterface
 {
     private static array $matches = [
-        'boolean',
+        'base64',
     ];
 
     /**
-     * ***get*** parses `boolean` value
+     * ***get*** parses `base64` string
      *
      * @param SimpleXMLElement $object
-     * @return bool
+     * @return string
      */
     public static function get(SimpleXMLElement $object)
     {
-        $pickableType = self::matchVariable(self::$matches, $object, 'boolean');
-        return (string) $object->{$pickableType} === '1';
+        $pickableType = self::matchVariable(self::$matches, $object, 'base64');
+        $baseValue = (string) $object->{$pickableType};
+        return base64_decode($baseValue);
     }
-    
+
     public static function names(): array
     {
         return self::$matches;

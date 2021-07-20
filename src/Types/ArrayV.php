@@ -2,41 +2,37 @@
 
 namespace AntanasGa\XmlRpcDecode\Types;
 
-use ValueError;
+use AntanasGa\XmlRpcDecode\Common;
+use SimpleXMLElement;
 
 /**
  * ***ArrayV*** Handles array elements
  */
-class ArrayV implements VInterface
+class ArrayV extends Common implements VInterface
 {
-    private \SimpleXMLElement $object;
-
-    /**
-     * @param \SimpleXMLElement $object `array` object
-     */
-    public function __construct(\SimpleXMLElement $object)
-    {
-        if (!isset($object->data)) {
-            throw new ValueError('Failed to decode Array');
-        }
-        $this->object = $object->data;
-    }
+    private static array $matches = [
+        'array',
+    ];
 
     /**
      * ***get*** parses `array`
      *
+     * @param SimpleXMLElement $object
      * @return array
      */
-    public function get()
+    public static function get(SimpleXMLElement $object)
     {
         $result = [];
-        if (count(get_object_vars($this->object)) > 0) {
-            foreach ($this->object as $part) {
-                $tmpValue = new Value($part);
-                $tmpHolder = $tmpValue->get();
-                $result[] = $tmpHolder;
-            }
+        $pickableType = self::matchVariable(self::$matches, $object, 'array');
+        $values = $object->{$pickableType}->data->value;
+        foreach ($values as $value) {
+            $result[] = Value::get($value);
         }
         return $result;
+    }
+
+    public static function names(): array
+    {
+        return self::$matches;
     }
 }

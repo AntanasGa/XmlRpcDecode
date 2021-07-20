@@ -3,10 +3,10 @@
 namespace AntanasGa\XmlRpcDecode;
 
 /**
- * ***ResponseError*** for error handling
+ * ***ResponseError*** Response error handling
  */
-class ResponseError
+class ResponseError implements ErrorInterface
 {
-    public $faultCode;
-    public $faultString;
+    public string $faultCode;
+    public string $faultString;
 }

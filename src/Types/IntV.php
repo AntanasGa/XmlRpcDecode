@@ -2,28 +2,33 @@
 
 namespace AntanasGa\XmlRpcDecode\Types;
 
+use AntanasGa\XmlRpcDecode\Common;
+use SimpleXMLElement;
+
 /**
  * ***IntV*** Handles `int` elements
  */
-class IntV implements VInterface
+class IntV extends Common implements VInterface
 {
-    private \SimpleXMLElement $object;
+    private static array $matches = [
+        'int',
+        'i4',
+    ];
 
     /**
-     * @param \SimpleXMLElement $object `int` object
-     */
-    public function __construct(\SimpleXMLElement $object)
-    {
-        $this->object = $object;
-    }
-
-    /**
-     * ***get*** parses `int`
+     * ***get*** parses `int` value
      *
+     * @param SimpleXMLElement $object
      * @return int
      */
-    public function get()
+    public static function get(SimpleXMLElement $object)
     {
-        return (int) $this->object;
+        $pickableType = self::matchVariable(self::$matches, $object, 'int');
+        return (int) $object->{$pickableType};
+    }
+
+    public static function names(): array
+    {
+        return self::$matches;
     }
 }

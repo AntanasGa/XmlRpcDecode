@@ -2,30 +2,33 @@
 
 namespace AntanasGa\XmlRpcDecode\Types;
 
+use AntanasGa\XmlRpcDecode\Common;
 use DateTime;
+use SimpleXMLElement;
 
 /**
  * ***DateTimeV*** Handles `DateTime` elements
  */
-class DateTimeV implements VInterface
+class DateTimeV extends Common implements VInterface
 {
-    private \SimpleXMLElement $object;
+    private static array $matches = [
+        'dateTime.iso8601',
+    ];
 
     /**
-     * @param \SimpleXMLElement $object `datetime` object
+     * ***get*** parses `DateTime` value
+     *
+     * @param SimpleXMLElement $object
+     * @return DateTime
      */
-    public function __construct(\SimpleXMLElement $object)
+    public static function get(SimpleXMLElement $object)
     {
-        $this->object = $object;
+        $pickableType = self::matchVariable(self::$matches, $object, 'dateTime');
+        return new DateTime($object->{$pickableType});
     }
 
-    /**
-     * ***get*** parses `DateTime`
-     *
-     * @return void
-     */
-    public function get()
+    public static function names(): array
     {
-        return new DateTime((string) $this->object);
+        return self::$matches;
     }
 }

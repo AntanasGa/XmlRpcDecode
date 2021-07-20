@@ -2,35 +2,32 @@
 
 namespace AntanasGa\XmlRpcDecode\Types;
 
+use AntanasGa\XmlRpcDecode\Common;
+use SimpleXMLElement;
+
 /**
- * ***StringV*** Handles `int` elements
+ * ***StringV*** Handles `string` elements
  */
-class StringV implements VInterface
+class StringV extends Common implements VInterface
 {
-    private \SimpleXMLElement $object;
-    private bool $base64 = false;
+    private static $matches = [
+        'string',
+    ];
 
     /**
-     * @param \SimpleXMLElement $object `string` object
-     * @param bool $base64 specify if value is in base64
-     */
-    public function __construct(\SimpleXMLElement $object, bool $base64 = false)
-    {
-        $this->object = $object;
-        $this->base64 = $base64;
-    }
-
-    /**
-     * ***get*** parses `string`
+     * ***get*** parses `string` value
      *
+     * @param SimpleXMLElement $object
      * @return string
      */
-    public function get()
+    public static function get(SimpleXMLElement $object)
     {
-        $result = (string) $this->object;
-        if ($this->base64) {
-            $result = base64_decode($result);
-        }
-        return $result;
+        $pickableType = self::matchVariable(self::$matches, $object, 'string');
+        return (string) $object->{$pickableType};
+    }
+
+    public static function names(): array
+    {
+        return self::$matches;
     }
 }

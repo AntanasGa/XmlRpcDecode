@@ -7,6 +7,9 @@
     "require": {
         "php": ">=7.0.0"
     },
+    "require-dev": {
+        "antanasga/xmlrpcencode": "^0.1.1"
+    },
     "autoload": {
         "psr-4": { "AntanasGa\\XmlRpcDecode\\": "src/" }
     }
