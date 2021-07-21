@@ -1,11 +1,27 @@
 # Release Notes
 
-## [v0.1.2 (2021-07-21)](https://github.com/AntanasGa/XmlRpcDecode/compare/v0.1.1...v0.1.2)
+## [v0.1.3 (2021-07-22)](https://github.com/AntanasGa/XmlRpcDecode/compare/v0.1.2...v0.1.3)
+
+### Bugfixes
+- [Variable parsing throws error with unexpected value of 0](https://github.com/AntanasGa/XmlRpcDecode/issues/2)
 
 ### Changed
-- **Complete rewrite** functionality retained for legacy
-- **Bugfix**: Arrays with one value collapse
-- Added throwable parameter to `Decode` construct function (not required to retain legacy)
-- Added XML error management, when XML can not be parsed
+***none***
+
+### Added
+- Test case for same XML string but with whitespace (read more in [Bugfixes](#Bugfixes))
+
+## [v0.1.2 (2021-07-21)](https://github.com/AntanasGa/XmlRpcDecode/compare/v0.1.1...v0.1.2)
+
+**Complete rewrite** functionality retained for legacy
+
+### Bugfixes
+- Arrays with one value collapse
+
+### Changed
 - Moved variables type parsing to static functions
 - Simplified variable type implementation in Value class
+
+### Added
+- Throwable parameter to `Decode` construct function (not required to retain legacy)
+- XML error management, when XML can not be parsed

@@ -42,6 +42,12 @@ class Value extends Common
         } elseif ($typeCount < 1) {
             throw new ValueError('Supplied too little arguments for value');
         }
+        // Fix `simplexml_load_string` inconsistancy
+        if ($typeArray === [0]) {
+            $value = $value[0];
+            $typeArray = array_keys(get_object_vars($value));
+        }
+        // End of fix
         $type = $typeArray[0];
         self::mapVariable($type);
         if (!isset(self::$mappedType[$type])) {

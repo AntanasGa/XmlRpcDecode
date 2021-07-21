@@ -86,3 +86,37 @@ if ([$testString] === $decoded) {
     echo 'Fail';
 }
 echo "\n";
+
+echo 'Test: XML with new lines compared to without... ';
+$encoded = "<?xml version='1.0'?>
+<methodResponse>
+<params>
+<param>
+<value><array><data>
+<value><struct>
+<member>
+<name>a</name>
+<value><string></string></value>
+</member>
+</struct></value>
+</data></array></value>
+</param>
+</params>
+</methodResponse>";
+
+$parserUnchanged = new Decode($encoded);
+$parserModified = new Decode(str_replace(["\n", "\r"], '', $encoded));
+try {
+    $decodedUnchanged = $parserUnchanged->fetch();
+    $decodedModified = $parserModified->fetch();
+    if ($decodedUnchanged === $decodedModified) {
+        echo 'Pass';
+    } else {
+        echo 'Fail';
+    }
+} catch (TypeError $e) {
+    echo 'Fail';
+    echo "\n";
+    echo $e;
+}
+echo "\n";

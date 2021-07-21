@@ -11,12 +11,12 @@ installation using composer:
 `composer.json`:
 ```json
 "require": {
-    "antanasga/xmlrpcdecode": "^0.1.2"
+    "antanasga/xmlrpcdecode": "^0.1.3"
 }
 ```
 In terminal:
 ```
-composer require antanasga/xmlrpcdecode
+$ composer require antanasga/xmlrpcdecode
 ```
 
 
