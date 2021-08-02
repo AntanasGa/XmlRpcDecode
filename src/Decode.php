@@ -91,11 +91,15 @@ class Decode
      */
     private function decodeFault()
     {
+        $parsed = Value::get($this->xmlData->fault->value);
         if ($this->throw) {
             throw new Exception(
-                sprintf('%s : %s', $this->xmlData)
+                sprintf('%s : %s', $parsed['faultCode'], $parsed['faultString'])
             );
         }
+        $this->error = new ResponseError();
+        $this->error->faultCode = $parsed['faultCode'];
+        $this->error->faultString = $parsed['faultString'];
     }
 
     /**

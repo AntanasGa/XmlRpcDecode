@@ -1,5 +1,17 @@
 # Release Notes
 
+## [v0.1.4 (2021-08-02)](https://github.com/AntanasGa/XmlRpcDecode/compare/v0.1.3...v0.1.4)
+
+### Bugfixes
+- [No correct error handling post rewrite (v0.1.2)](https://github.com/AntanasGa/XmlRpcDecode/issues/3)
+- Removed variables from interface
+
+### Changed
+***none***
+
+### Added
+***none***
+
 ## [v0.1.3 (2021-07-22)](https://github.com/AntanasGa/XmlRpcDecode/compare/v0.1.2...v0.1.3)
 
 ### Bugfixes

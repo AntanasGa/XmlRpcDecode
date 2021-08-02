@@ -11,7 +11,7 @@ installation using composer:
 `composer.json`:
 ```json
 "require": {
-    "antanasga/xmlrpcdecode": "^0.1.3"
+    "antanasga/xmlrpcdecode": "^0.1.4"
 }
 ```
 In terminal:
